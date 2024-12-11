@@ -1,42 +1,6 @@
-import reactCoreConcepts from "./assets/react-core-concepts.png";
 import  { CORE_CONCEPTS } from './data.js';
-
-const reactDescriptions = [
-  "Essential", "Core", "Primary", "Central", "Elementary",
-  "Foundational", "Underlying", "Principal", "Key", "Crucial",
-  "Vital", "Important", "Indispensable", "Integral", "Critical",
-  "Necessary", "Pivotal", "Cardinal", "Substantial", "Rudimentary"
-];
-
-function genRandomInt(max) {
-  return Math.floor(Math.random() * (max + 1));
-}
-
-function Header() {
-  const description = reactDescriptions[genRandomInt(19)]
-  return (
-    <header>
-      <img src={reactCoreConcepts} alt="Stylized atom" />
-      <h1>React Essentials</h1>
-      <p>
-        {description} React concepts you will need for almost any app you are
-        going to build!
-      </p>
-    </header>
-  );
-}
-
-// the function parameter below uses destructuring to get the parameters
-// from the sent props
-function CoreConcept({image, title, description}) {
-  return (
-    <li>
-      <img src={image} alt={title} />
-      <h3>{title}</h3>
-      <p>{description}</p>
-    </li>
-  );
-}
+import Header from "./components/Header.jsx";
+import CoreConcept from './components/CoreConcept.jsx';
 
 function App() {
   return (
