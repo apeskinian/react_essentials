@@ -6,7 +6,6 @@ import TabButton from './components/TabButton.jsx';
 function App() {
 
   let tabContent = 'Please click a button';
-
   function handleSelect(selectedButton) {
     tabContent = selectedButton;
   }
