@@ -1,53 +1,37 @@
-import reactLogo from './assets/react-core-concepts.png';
-
-const reactDescriptions = [
-  "Fundamental",
-  "Crucial",
-  "Core",
-  "Essential",
-  "Vital",
-  "Key",
-  "Basic",
-  "Foundational",
-  "Pivotal",
-  "Critical",
-  "Indispensable",
-  "Integral",
-  "Primary",
-  "Necessary",
-  "Important",
-  "Central",
-  "Main",
-  "Principal",
-  "Groundbreaking",
-  "Cornerstone"
-]
-
-function getRandomInt(max) {
-  return Math.floor(Math.random() * (max + 1));
-}
-
-function Header() {
-  const description = reactDescriptions[getRandomInt(19)]
-
-  return (
-      <header>
-        <img src={reactLogo} alt="Stylized atom"/>
-        <h1>React Essentials</h1>
-        <p>
-          {description} React concepts you will need for almost any app you are
-          going to build!
-        </p>
-      </header>
-  );
-}
+import * as content from './data.js'
+import Header from './components/Header/Header.jsx'
+import CoreConcept from './components/CoreConcept/CoreConcept.jsx'
+import TabButton from './components/Examples/TabButton.jsx';
 
 function App() {
   return (
     <div>
       <Header/>
       <main>
-        <h2>Time to get started!</h2>
+        <section id='core-concepts'>
+          <h2>Core Concepts</h2>
+          <ul>
+            {/* Longer option */}
+            <CoreConcept
+              image={content.CORE_CONCEPTS[0].image}
+              title={content.CORE_CONCEPTS[0].title}
+              description={content.CORE_CONCEPTS[0].description}
+            />
+            {/* Using spread operator */}
+            <CoreConcept {...content.CORE_CONCEPTS[1]}/>
+            <CoreConcept {...content.CORE_CONCEPTS[2]}/>
+            <CoreConcept {...content.CORE_CONCEPTS[3]}/>
+          </ul>
+        </section>
+        <section id='examples'>
+          <h2>Examples</h2>
+          <menu>
+            <TabButton>Components</TabButton>
+            <TabButton>JSX</TabButton>
+            <TabButton>Props</TabButton>
+            <TabButton>State</TabButton>
+          </menu>
+        </section>
       </main>
     </div>
   );
