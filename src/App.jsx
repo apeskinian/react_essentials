@@ -1,16 +1,51 @@
 import reactLogo from './assets/react-core-concepts.png';
 
-function App() {
+const reactDescriptions = [
+  "Fundamental",
+  "Crucial",
+  "Core",
+  "Essential",
+  "Vital",
+  "Key",
+  "Basic",
+  "Foundational",
+  "Pivotal",
+  "Critical",
+  "Indispensable",
+  "Integral",
+  "Primary",
+  "Necessary",
+  "Important",
+  "Central",
+  "Main",
+  "Principal",
+  "Groundbreaking",
+  "Cornerstone"
+]
+
+function getRandomInt(max) {
+  return Math.floor(Math.random() * (max + 1));
+}
+
+function Header() {
+  const description = reactDescriptions[getRandomInt(19)]
+
   return (
-    <div>
       <header>
-        <img src={reactLogo} alt="Stylized atom" />
+        <img src={reactLogo} alt="Stylized atom"/>
         <h1>React Essentials</h1>
         <p>
-          Fundamental React concepts you will need for almost any app you are
+          {description} React concepts you will need for almost any app you are
           going to build!
         </p>
       </header>
+  );
+}
+
+function App() {
+  return (
+    <div>
+      <Header/>
       <main>
         <h2>Time to get started!</h2>
       </main>
