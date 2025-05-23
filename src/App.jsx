@@ -8,12 +8,13 @@ import TabButton from './components/Examples/TabButton.jsx';
 
 function App() {
   // useState('initial data')
-  const [ selectedTopic, setSelectedTopic ] = useState('Please click a button');
+  const [ selectedTopic, setSelectedTopic ] = useState();
 
+  // This function takes the 'components' etc from the tab button and uses it to call
+  // useState which then replaces the content dynamically.
   function handleSelect(selectedButton) {
-    // Calls the useState setSelectedTopic function which causes page data to reload.
+    // Calls the useState setSelectedTopic function which causes App function to reload.
     setSelectedTopic(selectedButton);
-    
   }
 
   return (
@@ -38,12 +39,23 @@ function App() {
         <section id='examples'>
           <h2>Examples</h2>
           <menu>
+            {/* When buttons are clicked they send 'components' etc to the handleSelect function */}
             <TabButton onSelect={() => handleSelect('components')}>Components</TabButton>
             <TabButton onSelect={() => handleSelect('jsx')}>JSX</TabButton>
             <TabButton onSelect={() => handleSelect('props')}>Props</TabButton>
             <TabButton onSelect={() => handleSelect('state')}>State</TabButton>
           </menu>
-          {selectedTopic}
+          {/* Conditionally rendering either "Please select a topic" or the appropriate
+          info from button based on the presence of selectedTopic */}
+          {!selectedTopic ? <p>Please select a topic.</p> : (
+            <div id='tab-content'>
+              <h3>{content.EXAMPLES[selectedTopic].title}</h3>
+              <p>{content.EXAMPLES[selectedTopic].description}</p>
+              <pre>
+                <code>{content.EXAMPLES[selectedTopic].code}</code>
+              </pre>
+            </div>
+          )}
         </section>
       </main>
     </div>
