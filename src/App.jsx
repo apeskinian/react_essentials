@@ -1,3 +1,5 @@
+import { useState } from 'react';
+
 import * as content from './data.js'
 import Header from './components/Header/Header.jsx'
 import CoreConcept from './components/CoreConcept/CoreConcept.jsx'
@@ -5,9 +7,15 @@ import TabButton from './components/Examples/TabButton.jsx';
 
 
 function App() {
-  function handleSelect() {
-    console.log('Selected')
+  // useState('initial data')
+  const [ selectedTopic, setSelectedTopic ] = useState('Please click a button');
+
+  function handleSelect(selectedButton) {
+    // Calls the useState setSelectedTopic function which causes page data to reload.
+    setSelectedTopic(selectedButton);
+    
   }
+
   return (
     <div>
       <Header/>
@@ -30,11 +38,12 @@ function App() {
         <section id='examples'>
           <h2>Examples</h2>
           <menu>
-            <TabButton onSelect={handleSelect}>Components</TabButton>
-            <TabButton onSelect={handleSelect}>JSX</TabButton>
-            <TabButton onSelect={handleSelect}>Props</TabButton>
-            <TabButton onSelect={handleSelect}>State</TabButton>
+            <TabButton onSelect={() => handleSelect('components')}>Components</TabButton>
+            <TabButton onSelect={() => handleSelect('jsx')}>JSX</TabButton>
+            <TabButton onSelect={() => handleSelect('props')}>Props</TabButton>
+            <TabButton onSelect={() => handleSelect('state')}>State</TabButton>
           </menu>
+          {selectedTopic}
         </section>
       </main>
     </div>
