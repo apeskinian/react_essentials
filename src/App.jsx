@@ -17,6 +17,21 @@ function App() {
     setSelectedTopic(selectedButton);
   }
 
+  // Initially set tabContent
+  let tabContent =  <p>Please select a topic.</p>;
+
+  // Conditionally set tabContent when selectedTopic has been set from clicking a tabButton
+  if (selectedTopic) {
+    tabContent =
+      <div id='tab-content'>
+        <h3>{content.EXAMPLES[selectedTopic].title}</h3>
+        <p>{content.EXAMPLES[selectedTopic].description}</p>
+        <pre>
+          <code>{content.EXAMPLES[selectedTopic].code}</code>
+        </pre>
+      </div>
+  }
+
   return (
     <div>
       <Header/>
@@ -24,38 +39,35 @@ function App() {
         <section id='core-concepts'>
           <h2>Core Concepts</h2>
           <ul>
+            {/* The below technique uses map to go through each item in CORE_CONCEPTS
+            and create a CoreConcept component for each item, dynamically creating
+            components based on the data available */}
+            {content.CORE_CONCEPTS.map((conceptItem) => (
+              <CoreConcept key={conceptItem.title} {...conceptItem}/>
+            ))}
             {/* Longer option */}
-            <CoreConcept
-              image={content.CORE_CONCEPTS[0].image}
-              title={content.CORE_CONCEPTS[0].title}
-              description={content.CORE_CONCEPTS[0].description}
-            />
+            {/* <CoreConcept */}
+              {/* image={content.CORE_CONCEPTS[0].image} */}
+              {/* title={content.CORE_CONCEPTS[0].title} */}
+              {/* description={content.CORE_CONCEPTS[0].description} */}
+            {/* /> */}
             {/* Using spread operator */}
-            <CoreConcept {...content.CORE_CONCEPTS[1]}/>
-            <CoreConcept {...content.CORE_CONCEPTS[2]}/>
-            <CoreConcept {...content.CORE_CONCEPTS[3]}/>
+            {/* <CoreConcept {...content.CORE_CONCEPTS[1]}/> */}
+            {/* <CoreConcept {...content.CORE_CONCEPTS[2]}/> */}
+            {/* <CoreConcept {...content.CORE_CONCEPTS[3]}/> */}
           </ul>
         </section>
         <section id='examples'>
           <h2>Examples</h2>
           <menu>
             {/* When buttons are clicked they send 'components' etc to the handleSelect function */}
-            <TabButton onSelect={() => handleSelect('components')}>Components</TabButton>
-            <TabButton onSelect={() => handleSelect('jsx')}>JSX</TabButton>
-            <TabButton onSelect={() => handleSelect('props')}>Props</TabButton>
-            <TabButton onSelect={() => handleSelect('state')}>State</TabButton>
+            {/* isSelected also compares to truthy or falsy and sets class in TabButton.jsx as a prop */}
+            <TabButton isSelected={selectedTopic === 'components'} onSelect={() => handleSelect('components')}>Components</TabButton>
+            <TabButton isSelected={selectedTopic === 'jsx'} onSelect={() => handleSelect('jsx')}>JSX</TabButton>
+            <TabButton isSelected={selectedTopic === 'props'} onSelect={() => handleSelect('props')}>Props</TabButton>
+            <TabButton isSelected={selectedTopic === 'state'} onSelect={() => handleSelect('state')}>State</TabButton>
           </menu>
-          {/* Conditionally rendering either "Please select a topic" or the appropriate
-          info from button based on the presence of selectedTopic */}
-          {!selectedTopic ? <p>Please select a topic.</p> : (
-            <div id='tab-content'>
-              <h3>{content.EXAMPLES[selectedTopic].title}</h3>
-              <p>{content.EXAMPLES[selectedTopic].description}</p>
-              <pre>
-                <code>{content.EXAMPLES[selectedTopic].code}</code>
-              </pre>
-            </div>
-          )}
+          {tabContent}
         </section>
       </main>
     </div>
