@@ -1,7 +1,9 @@
 import { useState } from 'react';
 
 import { EXAMPLES } from '../../data.js';
+import Section from '../Section.jsx';
 import TabButton from './TabButton.jsx'
+import Tabs from '../Tabs.jsx';
 
 export default function Examples () {
     // useState('initial data')
@@ -29,17 +31,27 @@ export default function Examples () {
     }
 
     return (
-        <section id='examples'>
-            <h2>Examples</h2>
-            <menu>
-                {/* When buttons are clicked they send 'components' etc to the handleSelect function */}
-                {/* isSelected also compares to truthy or falsy and sets class in TabButton.jsx as a prop */}
-                <TabButton isSelected={selectedTopic === 'components'} onSelect={() => handleSelect('components')}>Components</TabButton>
-                <TabButton isSelected={selectedTopic === 'jsx'} onSelect={() => handleSelect('jsx')}>JSX</TabButton>
-                <TabButton isSelected={selectedTopic === 'props'} onSelect={() => handleSelect('props')}>Props</TabButton>
-                <TabButton isSelected={selectedTopic === 'state'} onSelect={() => handleSelect('state')}>State</TabButton>
-            </menu>
-            {tabContent}
-        </section>
+        <Section id='examples' title='Examples'>
+            {/* the buttons prop below is a bit like adding another children prop where you can input jsx as a prop
+            as long as it's wrapped in one element. */}
+            <Tabs
+                // Set the wrapper for the buttons dynamically as a prop.
+                // Normal html elements are defined with a string.
+                // Custom ones are defined with {}
+                // Make sure to use uppercase for the prop
+                // ButtonWrapper='menu' - no need if default is set.
+                buttons={
+                <>
+                    {/* When buttons are clicked they send 'components' etc to the handleSelect function */}
+                    {/* isSelected also compares to truthy or falsy and sets class in TabButton.jsx as a prop */}
+                    <TabButton isSelected={selectedTopic === 'components'} onClick={() => handleSelect('components')}>Components</TabButton>
+                    <TabButton isSelected={selectedTopic === 'jsx'} onClick={() => handleSelect('jsx')}>JSX</TabButton>
+                    <TabButton isSelected={selectedTopic === 'props'} onClick={() => handleSelect('props')}>Props</TabButton>
+                    <TabButton isSelected={selectedTopic === 'state'} onClick={() => handleSelect('state')}>State</TabButton>
+                </>
+            }>
+                {tabContent}
+            </Tabs>
+        </Section>
     )
 }
